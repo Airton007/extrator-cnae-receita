@@ -1,4 +1,13 @@
-__pycache__/
+# Dados e saídas
+data/
+outputs/
+*.parquet
 *.xlsx
-.venv/
+*.csv
 *.zip
+
+# Ambiente virtual e IDE
+.venv/
+pyvenv.cfg
+.vscode/
+__pycache__/
