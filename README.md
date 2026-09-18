@@ -32,6 +32,73 @@ git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.co
 cd seu-repositorio
 ```
 
+## 🛠️ Pipeline de Processamento de Dados da Receita Federal (ETL)
+
+O script `1_1_processar_dados_rfb.py` é responsável por extrair, transformar e consolidar os dados abertos públicos da Receita Federal do Brasil (RFB) de forma otimizada para grande volume de dados.
+
+### 🚀 Funcionalidades e Arquitetura
+
+* **Processamento Paralelo em Stream:** Utiliza `concurrent.futures.ProcessPoolExecutor` para distribuir a leitura dos arquivos ZIP de Estabelecimentos entre os núcleos da CPU. A leitura é feita diretamente da memória (stream), dispensando a extração dos arquivos `.csv` para o disco.
+* **Filtragem de Baixo Nível (Bytes):** Aplica um filtro primário diretamente nos bytes do arquivo antes da decodificação de texto (`latin1`), reduzindo drastically o uso de memória e tempo de execução.
+* **Filtros de Negócio Aplicações:** 
+  * Seleciona apenas estabelecimentos pertencentes aos **CNAEs-alvo** (setor de Engenharia Física/Hard Tech).
+  * Mantém apenas empresas com **Situação Cadastral Ativa** (`02`).
+* **Cruzamento de Bases:** Extrai apenas os registros das tabelas de *Empresas* (Razão Social, Capital Social e Porte) e *Simples/MEI* correspondentes aos CNPJs filtrados na etapa inicial.
+* **Consolidação de Alta Performance:** Utiliza a engine do **DuckDB** para registrar os DataFrames em memória, executar a junção relacional (`LEFT JOIN`) e exportar a base tratada final.
+
+### 📂 Arquivos Processados e Saída
+
+| Etapa | Origem dos Dados | Descrição das Informações Extraídas |
+| :--- | :--- | :--- |
+| **1/4** | `Estabelecimentos*.zip` | CNPJ completo, Endereço, Telefones, E-mail, CNAEs e Situação Cadastral. |
+| **2/4** | `Municipios.zip` | Mapeamento entre o código do município da RFB e o Nome da Cidade. |
+| **3/4** | `Empresas*.zip` | Razão Social, Capital Social e Código de Porte da empresa. |
+| **4/4** | `Simples.zip` | Indicadores de opção pelo Simples Nacional e MEI. |
+
+* **Arquivo de Saída:** `base_engenharia_fisica.parquet` (Compactação ZSTD).
+
+### ⚙️ Como Executar
+
+Garanta que os arquivos `.zip` fornecidos pela Receita Federal estejam dentro do diretório especificado no script (ex: `2026-08/` ou na raiz do projeto) e execute:
+
+```bash
+python 1_1_processar_dados_rfb.py
+
+
+---
+
+### 📂 Estrutura do Repositório
+
+```text
+extrator-cnae-receita/
+├── data/                       # Arquivos de dados pesados e temporários (ignorados no Git)
+│   ├── raw/                    # Dados brutos baixados da Receita Federal
+│   │   └── 2026-08/
+│   ├── processed/              # Bases de dados consolidadas e limpas
+│   │   └── base_engenharia_fisica.parquet
+│   └── temp/                   # Arquivos temporários de suporte
+│
+├── outputs/                    # Resultados, relatórios e visualizações geradas
+│   ├── relatorios/             # Planilhas executivas em Excel (.xlsx)
+│   ├── mapas/                  # Dashboards e mapas por CNAE (.png)
+│   └── resultados_espaciais/   # Mapeamento interativo (.html) e estatísticas
+│
+├── src/                        # Código-fonte organizado por etapas do pipeline
+│   ├── etl/                    # Scripts de extração, limpeza e consolidação
+│   │   ├── 1_1_gerar_base_empresas_rfb.py
+│   │   └── corregir_ufs_planilha.py
+│   ├── analysis/               # Consultas analíticas e classificação B2B
+│   │   ├── 2_2_explorar_e_exportar_duckdb.py
+│   │   └── 2_classificar_e_gerar_excel.py
+│   └── spatial/                # Análise espacial, índices econômicos (CR4/HHI) e mapas
+│       ├── analise_espacial_empresas.py
+│       └── gerador_mapa_empresas.py
+│
+├── .gitignore                  # Regras para ignorar arquivos pesados e ambientes
+├── pyvenv.cfg                   # Configuração do ambiente virtual Python
+└── requirements.txt            # Dependências e bibliotecas do projeto
+````
+
 ## ⚠️ Erro 403 ao carregar o mapa do OpenStreetMap
 
 Ao abrir diretamente, com duplo clique, o arquivo `.html` gerado pelo
