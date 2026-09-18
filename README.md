@@ -30,7 +30,7 @@ Pipeline em Python para análise espacial, mensuração de concentração econô
 ```bash
 git clone [https://github.com/seu-usuario/seu-repositorio.git](https://github.com/seu-usuario/seu-repositorio.git)
 cd seu-repositorio
-
+```
 
 ## ⚠️ Erro 403 ao carregar o mapa do OpenStreetMap
 
