@@ -147,49 +147,49 @@ extrator-cnae-receita/
 O fluxo principal do projeto pode ser representado da seguinte forma:
 
                                                              
-                                                             Dados públicos da Receita Federal
-                                                                             │
-                                                                             ▼
-                                                             ┌───────────────────────────────┐
-                                                             │ 1. Extração e consolidação    │
-                                                             │ 1_1_gerar_base_empresas_rfb   │
-                                                             └───────────────┬───────────────┘
-                                                                             │
-                                                                             ▼
-                                                               base_engenharia_fisica.parquet
-                                                                             │
-                                                                             ▼
-                                                             ┌───────────────────────────────┐
-                                                             │ 2. Seleção e classificação    │
-                                                             │ 2_1_classificar_e_gerar_excel │
-                                                             └───────────────┬───────────────┘
-                                                                             │
-                                                                             ▼
-                                                                 relatorio_empresas.xlsx
-                                                                             │
-                                                                             ▼
-                                                             ┌───────────────────────────────┐
-                                                             │ 3. Higienização geográfica    │
-                                                             │ 2_2_corrigir_ufs_planilha     │
-                                                             └───────────────┬───────────────┘
-                                                                             │
-                                                                             ▼
-                                                        relatorio_empresas_higienizado_completo.xlsx
-                                                                             │
-                                                                             ▼
-                                                             ┌───────────────────────────────┐
-                                                             │ 4. Análise espacial           │
-                                                             │ 3_1_analise_espacial_empresas │
-                                                             └───────────────┬───────────────┘
-                                                                             │
-                                                                     ┌───────┴────────┐
-                                                                     ▼                ▼
-                                                                 Dashboard       Mapa interativo
-                                                                   PNG                HTML
-                                                                     │                │
-                                                                     └───────┬────────┘
-                                                                             ▼
-                                                                   CR4 / HHI / Distribuição
+                                                    Dados públicos da Receita Federal
+                                                                    │
+                                                                    ▼
+                                                    ┌───────────────────────────────┐
+                                                    │ 1. Extração e consolidação    │
+                                                    │ 1_1_gerar_base_empresas_rfb   │
+                                                    └───────────────┬───────────────┘
+                                                                    │
+                                                                    ▼
+                                                      base_engenharia_fisica.parquet
+                                                                    │
+                                                                    ▼
+                                                    ┌───────────────────────────────┐
+                                                    │ 2. Seleção e classificação    │
+                                                    │ 2_1_classificar_e_gerar_excel │
+                                                    └───────────────┬───────────────┘
+                                                                    │
+                                                                    ▼
+                                                        relatorio_empresas.xlsx
+                                                                    │
+                                                                    ▼
+                                                    ┌───────────────────────────────┐
+                                                    │ 3. Higienização geográfica    │
+                                                    │ 2_2_corrigir_ufs_planilha     │
+                                                    └───────────────┬───────────────┘
+                                                                    │
+                                                                    ▼
+                                               relatorio_empresas_higienizado_completo.xlsx
+                                                                    │
+                                                                    ▼
+                                                    ┌───────────────────────────────┐
+                                                    │ 4. Análise espacial           │
+                                                    │ 3_1_analise_espacial_empresas │
+                                                    └───────────────┬───────────────┘
+                                                                    │
+                                                            ┌───────┴────────┐
+                                                            ▼                ▼
+                                                        Dashboard       Mapa interativo
+                                                          PNG                HTML
+                                                            │                │
+                                                            └───────┬────────┘
+                                                                    ▼
+                                                          CR4 / HHI / Distribuição
                                                            
 
 ---
