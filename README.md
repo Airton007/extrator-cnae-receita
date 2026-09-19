@@ -62,17 +62,7 @@ Atualmente, os CNAEs utilizados na análise principal são:
 
 Esses quatro códigos são os atualmente selecionados pelo script de classificação e utilizados na análise espacial.
 
-### ⚠️ CNAE adicional presente no ETL
-
-O processo inicial de extração também contempla o CNAE:
-
-| CNAE      | Descrição                                                                                           |
-| --------- | --------------------------------------------------------------------------------------------------- |
-| `3312103` | Manutenção e reparação de aparelhos eletromédicos e eletroterapêuticos e equipamentos de irradiação |
-
-Esse CNAE é coletado na **base consolidada pelo ETL**, porém não está incluído atualmente na lista `CNAES_ALVO` da etapa de classificação nem no conjunto de CNAEs utilizado pelo módulo espacial.
-
-Para incluí-lo nas análises posteriores, é necessário adicioná-lo às respectivas configurações dos scripts.
+Para incluir novos CNAE nas análises, é necessário adicioná-lo às respectivas configurações dos scripts.
 
 ---
 
@@ -84,20 +74,15 @@ Para incluí-lo nas análises posteriores, é necessário adicioná-lo às respe
 
 ### Processamento e manipulação de dados
 
-* `Pandas`
-* `NumPy`
-* `DuckDB`
+* `Pandas`, `NumPy`  `DuckDB`
 
 ### Análise espacial
 
-* `GeoPandas`
-* `Folium`
-* `Branca`
+* `GeoPandas`, `Folium`, `Branca`
 
 ### Visualização
 
-* `Matplotlib`
-* `GridSpec`
+* `Matplotlib`, `GridSpec`
 
 ### Dados geográficos
 
@@ -688,6 +673,6 @@ MIT License
 
 # 👤 Autor
 
-**Airton Ferreira**
+**Airton de Franca Ferreira**
 
 Projeto desenvolvido para análise de empresas relacionadas à **Engenharia Física, Hard Tech e setores tecnológicos associados**, utilizando dados públicos da Receita Federal do Brasil.
